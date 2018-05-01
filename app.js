@@ -12,6 +12,9 @@ app.get('/', function(req, res) {
 	res.send('Welcome to my API!')
 });
 
+// to be able to listen to port by calling from
+	// command line: node app.js
+	// Response is 'Running on PORT: 3000'
 app.listen(port, function () {
-	console.log('Running on PORT: ' + port);
+	console.log('Gulp is running my app on PORT: ' + port);
 });
