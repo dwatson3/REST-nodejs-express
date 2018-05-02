@@ -16,9 +16,12 @@ var bookRouter = express.Router();
 bookRouter.route('/Books')
 	.get(function(req, res) {
 		// var responseJson = {hello: "This is my API"};
-		Book.find(function(err, books) {
+
+		var query = req.query; //providing a query parament to filter through API
+		Book.find(query, function(err, books) {
 			if(err) {
-				console.log(err)
+				// console.log(err)
+				res.status(500).send(err)
 			} else {
 				res.json(books);
 			};
