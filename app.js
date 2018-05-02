@@ -23,10 +23,7 @@ bookRouter.route('/Books')
 				res.json(books);
 			};
 		});
-
-		// this is the response sending responseJson back
-		res.json(responseJson);
-	});
+	})
 
 app.use('/api', bookRouter);
 
