@@ -75,11 +75,33 @@ bookRouter.route('/Books/:bookId') //accessing the API by a single query Book Id
 				book.author = req.body.author;
 				book.genre = req.body.genre;
 				book.read = req.body.read;
-				book.save();	// saving the new Book information
+				// book.save();	// saving the new Book information
+				req.book.save(function(err) {
+					if(err)
+						res.status(500).send(err);
+					else {
+						res.json(req.book);
+				}
+		});
 				res.json(book);
 				res.json(req.book);
 		});
 		return bookRouter;
+	})
+
+	.patch(function(req, res) {
+		if(req.body._id)
+			delete req.body._id;
+		for(var p in req.body) { // using a for/in loop
+			req.book[p] = req.body[p];
+		}
+		req.book.save(function(err) {
+			if(err)
+				res.status(500).send(err);
+			else {
+				res.json(req.book);
+			}
+		});
 	})
 
 
