@@ -17,7 +17,12 @@ bookRouter.route('/Books')
 	.get(function(req, res) {
 		// var responseJson = {hello: "This is my API"};
 
-		var query = req.query; //providing a query parament to filter through API
+		var query = {};
+
+		if (req.query.genre) { // allows to filter on genre information
+			query.genre = req.query.genre;
+		}
+
 		Book.find(query, function(err, books) {
 			if(err) {
 				// console.log(err)
@@ -27,6 +32,18 @@ bookRouter.route('/Books')
 			};
 		});
 	})
+
+bookRouter.route('/Books/:bookId') //accessing the API by a single query Book Id
+	.get(function(req, res) {
+
+		Book.findById(req.params.bookId, function(err, book) {
+			if(err) 
+				res.status(500).send(err);
+			  else 
+				res.json(book);
+		});
+	});
+
 
 app.use('/api', bookRouter);
 
